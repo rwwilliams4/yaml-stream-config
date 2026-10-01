@@ -76,6 +76,20 @@ func main() {
 }
 ```
 
+If you would rather have a tree than a token stream, `Parse` builds one for
+small documents (this does hold the whole document in memory):
+
+```go
+root, err := yamlconfig.Parse(f)
+if err != nil {
+	log.Fatal(err)
+}
+fmt.Println(root.Get("service").Get("name").Value)
+```
+
+`Get` looks up a mapping key, `Index` a sequence element; both return nil
+when the node is the wrong kind or the entry is missing.
+
 As a command, to validate a file and print it back out reformatted:
 
 ```
